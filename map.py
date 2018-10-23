@@ -58,14 +58,21 @@ for i in range(2,wsa.max_row+1):
 		
 #Insert consultant name
 
+consultant = []
 
-for assign_row in range(1,wsa.max_row+1): #iterate over assignment file
-	for cust_row in range(1, wso.max_row+1): # iterate over output file
+for cust_row in range(1, wso.max_row+1): # iterate over output file
+	consultant.clear()
+	for assign_row in range(1,wsa.max_row+1): #iterate over assignment file	
 		if wsa.cell(row=assign_row,column=8).value == wso.cell(row=cust_row,column=1).value: #compare customer name in assignment with output file
-			#insert consultant name in output file in column 'consultant_column'
-			wso.cell(row=cust_row, column=consultant_column[wso.cell(row=cust_row,column=1).value]).value = wsa.cell(row=assign_row,column=1).value 
-			consultant_column[wso.cell(row=cust_row,column=1).value] += 1
-
+			temp_consultant = wsa.cell(row=assign_row,column=1).value
+			if temp_consultant in consultant:
+				pass
+			else:
+				#insert consultant name in output file in column 'consultant_column'
+				wso.cell(row=cust_row, column=consultant_column[wso.cell(row=cust_row,column=1).value]).value = wsa.cell(row=assign_row,column=1).value 
+				consultant_column[wso.cell(row=cust_row,column=1).value] += 1
+				consultant.append(temp_consultant)
+				
 
 		
 wbo.save('output.xlsx')

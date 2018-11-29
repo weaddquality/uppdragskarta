@@ -68,7 +68,7 @@ for cust_row in range(1, wso.max_row+1): # iterate over output file
 			temp_status = wsa.cell(row=assign_row,column=4).value
 			if temp_consultant in consultant:
 				pass
-			elif temp_status != "Tillsatt":
+			elif temp_status != "Tillsatt": #Tar endast med tillsatta roller, inte de som blivit avböjda eller avböjts
 				pass
 			else:
 				#insert consultant name in output file in column 'consultant_column'

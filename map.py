@@ -65,7 +65,10 @@ for cust_row in range(1, wso.max_row+1): # iterate over output file
 	for assign_row in range(1,wsa.max_row+1): #iterate over assignment file	
 		if wsa.cell(row=assign_row,column=8).value == wso.cell(row=cust_row,column=1).value: #compare customer name in assignment with output file
 			temp_consultant = wsa.cell(row=assign_row,column=1).value
+			temp_status = wsa.cell(row=assign_row,column=4).value
 			if temp_consultant in consultant:
+				pass
+			elif temp_status != "Tillsatt":
 				pass
 			else:
 				#insert consultant name in output file in column 'consultant_column'

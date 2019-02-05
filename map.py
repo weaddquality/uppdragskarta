@@ -2,6 +2,7 @@
 from openpyxl import Workbook
 from openpyxl import load_workbook
 import sys
+import datetime
 
 #Output file
 wbo = Workbook()
@@ -78,7 +79,8 @@ for cust_row in range(1, wso.max_row+1): # iterate over output file
 				
 
 		
-wbo.save('output.xlsx')
+tempday = datetime.date.today().strftime("%Y-%m-%d")
+wbo.save('output_' + tempday + '.xlsx')
 print("Output file created")
 
 	

@@ -53,8 +53,11 @@ for i in range(2,wsa.max_row+1):
 				wso.cell(row=count,column=3).value = wsc.cell(row=j,column=6).value #Customer postal code
 				wso.cell(row=count,column=4).value = wsc.cell(row=j,column=7).value #Customer city
 				
-				#print(wsa.cell(row=i,column=8).value)
+				if wsc.cell(row=j,column=4).value is None or wsc.cell(row=j,column=6).value is None or wsc.cell(row=j,column=7).value is None:
+                                        print ("Någon del av adressen saknas för " + temp_customer)
 				break
+
+                                
 		count = count + 1
 		
 #Insert consultant name

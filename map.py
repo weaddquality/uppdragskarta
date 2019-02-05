@@ -82,7 +82,7 @@ for cust_row in range(1, wso.max_row+1): # iterate over output file
 				
 
 		
-tempday = datetime.date.today().strftime("%Y-%m-%d")
+tempday = datetime.date.today().strftime("%Y-%m-%d") #
 wbo.save('output_' + tempday + '.xlsx')
 print("Output file created")
 

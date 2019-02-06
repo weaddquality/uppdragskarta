@@ -54,7 +54,14 @@ for i in range(2,wsa.max_row+1):
 				wso.cell(row=count,column=4).value = wsc.cell(row=j,column=7).value #Customer city
 				
 				if wsc.cell(row=j,column=4).value is None or wsc.cell(row=j,column=6).value is None or wsc.cell(row=j,column=7).value is None:
-                                        print ("Någon del av adressen saknas för " + temp_customer)
+                                        temp_saknas = ""
+                                        if wsc.cell(row=j,column=4).value is None:
+                                                temp_saknas = temp_saknas + "Gatunamn"
+                                        if wsc.cell(row=j,column=6).value is None:
+                                                temp_saknas = temp_saknas + " Postnummer"
+                                        if wsc.cell(row=j,column=7).value is None:
+                                                temp_saknas = temp_saknas + " Stad"
+                                        print ("Följande adressdata saknas för " + temp_customer + ":" + temp_saknas)
 				break
 
                                 

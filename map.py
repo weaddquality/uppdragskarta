@@ -41,26 +41,25 @@ wso.cell(row=1,column=4).value = 'Stad'
 
 count = 2 # row to start inserting values
 for i in range(2,wsa.max_row+1):
+        if customer_address_exist == 0 and i != 2:
+                print ("Adress saknas för " + temp_customer)
+        customer_address_exist = 0
+        temp_customer = wsa.cell(row=i,column=8).value
+        if temp_customer in customers:
+                customer_address_exist = 1
+                pass
+        else:
+                customers.append(temp_customer)
+                wso.cell(row=count,column=1).value = temp_customer #insert customer name in output file
+                for j in range(2,wsc.max_row+1):
+                        consultant_column[temp_customer] = 5 # The first consultant should be in column 5
+                        if wsc.cell(row=j,column=2).value == temp_customer:
+                                customer_address_exist = 1
+                                wso.cell(row=count,column=2).value = wsc.cell(row=j,column=4).value #Customer addresse
+                                wso.cell(row=count,column=3).value = wsc.cell(row=j,column=6).value #Customer postal code
+                                wso.cell(row=count,column=4).value = wsc.cell(row=j,column=7).value #Customer city
 
-  if customer_address_exist == 0 and i != 2:
-    print ("Adress saknas för " + temp_customer)
-  customer_address_exist = 0
-	temp_customer = wsa.cell(row=i,column=8).value
-	if temp_customer in customers:
-    customer_address_exist = 1
-		pass
-	else:
-		customers.append(temp_customer)
-		wso.cell(row=count,column=1).value = temp_customer #insert customer name in output file
-		for j in range(2,wsc.max_row+1):
-			consultant_column[temp_customer] = 5 # The first consultant should be in column 5
-			if wsc.cell(row=j,column=2).value == temp_customer:
-        customer_address_exist = 1
-				wso.cell(row=count,column=2).value = wsc.cell(row=j,column=4).value #Customer addresse
-				wso.cell(row=count,column=3).value = wsc.cell(row=j,column=6).value #Customer postal code
-				wso.cell(row=count,column=4).value = wsc.cell(row=j,column=7).value #Customer city
-				
-				if wsc.cell(row=j,column=4).value is None or wsc.cell(row=j,column=6).value is None or wsc.cell(row=j,column=7).value is None:
+                                if wsc.cell(row=j,column=4).value is None or wsc.cell(row=j,column=6).value is None or wsc.cell(row=j,column=7).value is None:
                                         temp_saknas = ""
                                         if wsc.cell(row=j,column=4).value is None:
                                                 temp_saknas = temp_saknas + "Gatunamn"
@@ -69,8 +68,8 @@ for i in range(2,wsa.max_row+1):
                                         if wsc.cell(row=j,column=7).value is None:
                                                 temp_saknas = temp_saknas + " Stad"
                                         print ("Följande adressdata saknas för " + temp_customer + ":" + temp_saknas)
-				                                break
-        count = count + 1
+                                break
+                count = count + 1
                         
 		
 #Insert consultant name

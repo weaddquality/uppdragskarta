@@ -14,18 +14,18 @@ try:
 except FileNotFoundError:
 	print("Fil med uppdrag saknas")
 	sys.exit()
-	
+
 #Customer addresses
 try:
 	wbc = load_workbook(filename = 'Cinode_Customer_Addresses_Export.xlsx')
 except FileNotFoundError:
 	print("Fil med adresser saknas")
 	sys.exit()
-	
+
 #WorkBook Sheet
 wsa = wba.active
 wsc = wbc.active
-		
+
 customers = [] #list for temporarily storing customer names
 consultant_column = {}
 customer_address_exist = 0
@@ -42,10 +42,10 @@ wso.cell(row=1,column=4).value = 'Stad'
 count = 2 # row to start inserting values
 for i in range(2,wsa.max_row+1):
         if customer_address_exist == 0 and i != 2:
-                print ("Adress saknas för " + temp_customer)
+                print (temp_customer + "- Adress saknas")
         customer_address_exist = 0
         temp_customer = wsa.cell(row=i,column=8).value
-        if temp_customer in customers:
+        if temp_customer in customers or temp_customer == "ADDQ":
                 customer_address_exist = 1
                 pass
         else:
@@ -67,18 +67,18 @@ for i in range(2,wsa.max_row+1):
                                                 temp_saknas = temp_saknas + " Postnummer"
                                         if wsc.cell(row=j,column=7).value is None:
                                                 temp_saknas = temp_saknas + " Stad"
-                                        print ("Följande adressdata saknas för " + temp_customer + ":" + temp_saknas)
+                                        print (temp_customer +"- Följande adressdata saknas:" + temp_saknas)
                                 break
                 count = count + 1
-                        
-		
+
+
 #Insert consultant name
 
 consultant = []
 
 for cust_row in range(1, wso.max_row+1): # iterate over output file
 	consultant.clear()
-	for assign_row in range(1,wsa.max_row+1): #iterate over assignment file	
+	for assign_row in range(1,wsa.max_row+1): #iterate over assignment file
 		if wsa.cell(row=assign_row,column=8).value == wso.cell(row=cust_row,column=1).value: #compare customer name in assignment with output file
 			temp_consultant = wsa.cell(row=assign_row,column=1).value
 			temp_status = wsa.cell(row=assign_row,column=4).value
@@ -88,14 +88,12 @@ for cust_row in range(1, wso.max_row+1): # iterate over output file
 				pass
 			else:
 				#insert consultant name in output file in column 'consultant_column'
-				wso.cell(row=cust_row, column=consultant_column[wso.cell(row=cust_row,column=1).value]).value = wsa.cell(row=assign_row,column=1).value 
+				wso.cell(row=cust_row, column=consultant_column[wso.cell(row=cust_row,column=1).value]).value = wsa.cell(row=assign_row,column=1).value
 				consultant_column[wso.cell(row=cust_row,column=1).value] += 1
 				consultant.append(temp_consultant)
-				
 
-		
+
+
 tempday = datetime.date.today().strftime("%Y-%m-%d") #
 wbo.save('output_' + tempday + '.xlsx')
 print("Output file created")
-
-	

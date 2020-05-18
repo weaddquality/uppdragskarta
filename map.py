@@ -41,7 +41,6 @@ wso.cell(row=1,column=4).value = 'Stad'
 
 count = 2 # row to start inserting values
 for i in range(2,wsa.max_row+1):
-        if customer_address_exist == 0 and i != 2:
                 print (temp_customer + "- Adress saknas")
         customer_address_exist = 0
         temp_customer = wsa.cell(row=i,column=8).value
@@ -54,7 +53,6 @@ for i in range(2,wsa.max_row+1):
                 for j in range(2,wsc.max_row+1):
                         consultant_column[temp_customer] = 5 # The first consultant should be in column 5
                         if wsc.cell(row=j,column=2).value == temp_customer:
-                        if wsc.cell(row=j,column=2).value == temp_customer and wsc.cell(row=j,column=9).value == "Street":
                                 customer_address_exist = 1
                                 wso.cell(row=count,column=2).value = wsc.cell(row=j,column=4).value #Customer addresse
                                 wso.cell(row=count,column=3).value = wsc.cell(row=j,column=6).value #Customer postal code

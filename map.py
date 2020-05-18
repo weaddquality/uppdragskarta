@@ -73,7 +73,7 @@ for i in range(2,wsa.max_row+1):
 
 #Insert consultant name
 
-consultant = []
+consultant = [] #
 
 for cust_row in range(1, wso.max_row+1): # iterate over output file
 	consultant.clear()
